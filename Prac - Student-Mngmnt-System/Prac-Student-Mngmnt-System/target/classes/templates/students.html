@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org">					<!-- by using this thymeleaf reference link, th:each is defined-->
+<head>
+<meta charset="ISO-8859-1">
+<title>Student Management System</title>
+<link rel="stylesheet" 
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+	crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">				
+		<a class="navbar-brand" href="#">Student Management System</a>							<!-- Brand name -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">		<!-- Toggler/collapsibe Button -->
+			<span class="navbar-toggler-icon"></span>
+		</button>
+  						<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/students}">Student Management</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	
+	<div class = "container">									<!--wrap all html code in this container-->
+		<div class = "row">					
+			<h1> List Students </h1>
+		</div>
+		<div class = "row">										<!-- add button div class-->
+			<div class = "col-lg-3">							<!-- col-column; lg-large-->
+			<a th:href = "@{/students/new}" class = "btn btn-primary btn-sm mb-3"> Add Student </a>		<!--mb-margin bottom-->
+		<table class = "table table-striped table-bordered">
+			<thead class = "table-dark">						<!--thead-table header-->
+				<tr>											<!--tr-table row-->
+					<th> Student First Name </th>				<!--th-table column-->
+					<th> Student Last Name </th>
+					<th> Student Email </th>
+					<th> Actions </th>
+				</tr>
+			</thead>
+			<tbody>												<!--tbody-table body-->
+				<tr th:each = "student: ${students}">			<!--table row should display dynamically, for this we have to use th:each attribute-->
+					<td th:text = "${student.firstName}"></td>	<!--td-table data-->
+					<td th:text = "${student.lastName}"></td>
+					<td th:text = "${student.email}"></td>
+					<td>
+						<a th:href = "@{/students/edit/{id}(id=${student.id})}"
+							class = "btn btn-primary"> Update </a>
+						<a th:href = "@{/students/{id}(id=${student.id})}"
+							class = "btn btn-danger"> Delete </a>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
